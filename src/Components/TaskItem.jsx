@@ -1,12 +1,12 @@
 import React from 'react'
 
-function TaskItem({ task, onDelete, onToggle}) {
+function TaskItem({ task,index, onDelete, onToggle}) {
     return (
         <div className="flex items-center justify-between mb-2 bg-gray-100 p-2 rounded">
         <span
             onClick={() => onToggle(task.id)}
             className={task.completed ? 'task done' : 'task'}>
-            {task.text} 
+            {index + 1}.  <span/>{task.text} 
         </span>
         <button
             onClick={() => onDelete(task.id)}

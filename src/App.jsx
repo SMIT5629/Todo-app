@@ -22,11 +22,13 @@ function App() {
   };
   
   return (
-    
+    <>
+    <h1 className='flex justify-center text-4xl font-extrabold mask-radial-from-neutral-300' >Todo App</h1>
     <div className="p-4 max-w-xl mx-auto">
       <TaskInput onAdd={addTask} />
       <TaskList tasks ={tasks} onToggle={toggleTask} onDelete={deleteTask} />
     </div>
+    </>
     
   )
 }
