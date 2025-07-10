@@ -20,11 +20,14 @@ function App() {
   const deleteTask = (id) => {
     setTasks(tasks.filter(task => task.id !== id));
   };
+  
   return (
+    
     <div className="p-4 max-w-xl mx-auto">
       <TaskInput onAdd={addTask} />
       <TaskList tasks ={tasks} onToggle={toggleTask} onDelete={deleteTask} />
     </div>
+    
   )
 }
 
