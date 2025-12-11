@@ -104,11 +104,19 @@ form button {
 }
 
 .btn-delete {
-    background: #cf6679;
+    background: #eb422c;
     color: black;
 }
 
 .btn-toggle {
     background: #03dac6;
+    color: black;
+}
+.btn-up {
+    background: #0c2a05;
+    color: black;
+}
+.btn-down {
+    background: #511212;
     color: black;
 }
