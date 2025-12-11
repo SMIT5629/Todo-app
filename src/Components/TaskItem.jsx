@@ -1,25 +1,23 @@
-import React from 'react'
+import React from 'react';
 
-function TaskItem({ task,index, onDelete, onToggle}) {
-    return (
-        <div className="flex items-center justify-between mb-2 bg-gray-100 p-2 rounded">
-        <span
-            className={task.completed ? 'task done' : 'task'}>
-            {index + 1}.  <span/>{task.text} 
-        </span>
-        <button onClick={() => onToggle(task.id)}
-        className={`px-2 py-1 rounded text-white ${task.completed ? 'bg-green-500' : 'bg-blue-500'} 
-            hover:opacity-80`}
-        >{task.completed ? 'Undo' : 'Done'}
-        </button>
-        <button
-            onClick={() => onDelete(task.id)}
-            className="ml-2 text-red-500 hover:text-red-700"
-        >
-            Delete
-        </button>
-        </div>
-    )
-    }
+function TaskItem({ task, index, onDelete, onEdit ,onToggle}) {
 
-export default TaskItem
+  const handleEdit = () => {
+  const newText = prompt("Edit task:", task.text);
+  if (newText && newText.trim()) {
+    onEdit(task.id, newText.trim());
+  }
+};
+
+
+  return (
+    <div className='task-item'>
+      <span>{index + 1}. {task.text} {task.completed ? '✔️':''}</span>
+      <button className="btn btn-edit" onClick={handleEdit}>Edit</button>
+      <button className="btn btn-delete" onClick={()=> onDelete(task.id)}>Delete</button>
+      <button className="btn btn-toggle" onClick ={()=> onToggle(task.id)}>{task.completed ?'UNDO':'DONE'}</button>
+    </div>
+  );
+}
+
+export default TaskItem;

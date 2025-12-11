@@ -1,37 +1,48 @@
-import React from 'react'
-import { useState } from 'react';
-import TaskInput from './Components/TaskInput'
-import TaskList from './Components/TaskList'
+import React, { useState } from 'react';
+import TaskInput from './components/TaskInput';
+import Tasklist from './components/Tasklist';
+import './App.css';
 
 function App() {
+
   const [tasks, setTasks] = useState([]);
 
-  const addTask = (text) => {
-    const newTask = { id: Date.now(), text, completed: false };
-    setTasks([newTask, ...tasks]);
+  const addTask = (taskText) => {
+  const newTask = {
+    id: Date.now(),  
+    text: taskText,
+    completed: false
   };
+  setTasks([...tasks, newTask]);
+};
 
-  const toggleTask = (id) => {
-    setTasks(tasks.map(task =>
-      task.id === id ? { ...task, completed: !task.completed } : task
-    ));
-  };
 
   const deleteTask = (id) => {
     setTasks(tasks.filter(task => task.id !== id));
   };
 
+  const editTask = (id, newText) => {
+  const updated = tasks.map(task =>
+    task.id === id ? { ...task, text: newText } : task
+  );
+  setTasks(updated);
+};
+
+  const toggleTask = (id) => {
+    const updated = tasks.map((task ) =>
+      task.id === id ? { ...task, completed: !task.completed } : task
+    );
+    setTasks(updated);
+  }
   
+
   return (
-    <>
-    <h1 className='flex justify-center text-4xl font-extrabold mask-radial-from-neutral-300' >Todo App</h1>
-    <div className="p-4 max-w-xl mx-auto">
-      <TaskInput onAdd={addTask} />
-      <TaskList tasks ={tasks} onToggle={toggleTask} onDelete={deleteTask} />
+    <div className='app-container'>
+      <h1>To-Do App</h1>
+      <TaskInput onadd={addTask} />
+      <Tasklist tasks={tasks} deleteTask={deleteTask} editTask={editTask} toggleTask={toggleTask}/>
     </div>
-    </>
-    
-  )
+  );
 }
 
-export default App
+export default App;

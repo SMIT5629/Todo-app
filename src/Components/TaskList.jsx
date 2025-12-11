@@ -1,20 +1,21 @@
-import React from 'react'
-import TaskItem from './TaskItem'
+import React from 'react';
+import TaskItem from './TaskItem';
 
-function TaskList({tasks =[], onDelete, onToggle}) {
+function Tasklist({ tasks = [], deleteTask, editTask ,toggleTask}) {
     return (
-        <div>
-        {tasks.map((task,index) => (
-            <TaskItem
-                key={task.id}
-                task={task}
-                index={index}
-                onDelete={onDelete}
-                onToggle={onToggle}
-            />
-        ))}
+        <div className='task-list'>
+            {tasks.map((task, index) => (
+                <TaskItem
+                    key={task.id}
+                    task={task}
+                    index={index}
+                    onDelete={deleteTask}
+                    onEdit={editTask}
+                    onToggle ={toggleTask}
+                />
+            ))}
         </div>
-    )
+    );
 }
 
-export default TaskList
+export default Tasklist;
