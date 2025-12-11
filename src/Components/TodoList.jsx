@@ -38,6 +38,10 @@ function TodoList() {
         e.preventDefault();
         addTask();
     };
+    const removeAll = (index) => {
+        setTasks ([]);
+    }
+
     return (
         <div>
             <h2>Todo List</h2>
@@ -50,6 +54,7 @@ function TodoList() {
             </form>
             <div>
                 <ol>
+                    <p>{tasks.length == 0? 'No Tasks addes': ''}</p>
                     {tasks.map((task, index) =>
                         <li className='task-list' key={index}>
                             <span className='task'>{task.text}</span>
@@ -63,6 +68,7 @@ function TodoList() {
 
                         </li>
                     )}
+                    <button className='btn' onClick={removeAll}>remove all</button>
                 </ol>
             </div>
 
