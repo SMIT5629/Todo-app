@@ -1,16 +1,30 @@
 //simple and shorter version of TodoList with up and down functionality instead of three separate components for input and list
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 
 function TodoList() {
-    const [tasks, setTasks] = useState([])
+    const [tasks, setTasks] = useState(()=>{
+        const storedTasks = localStorage.getItem("tasks")
+        return storedTasks ? JSON.parse(storedTasks) :[];
+    })
     const [newTask, setNewTask] = useState('')
 
+    const [form, setForm] = useState({
+        title: "",
+        task: ""
+    });
+
     const addTask = () => {
-        if (newTask.trim() !== '') {
-            setTasks([...tasks, { text: newTask, completed: false }])
-            setNewTask('')
+        if (form.task.trim() !== '' && form.title.trim() !== "") {
+            setTasks([...tasks, { title: form.title, task: form.task, completed: false }])
+            setForm({ title: "", task: "" });
+
         }
     }
+
+    useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+    
     const deleteTask = (index) => {
         setTasks(tasks.filter((_, i) => i !== index))
     }
@@ -38,26 +52,38 @@ function TodoList() {
         e.preventDefault();
         addTask();
     };
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setForm(prev => ({ ...prev, [name]: value }));
+    };
+
     const removeAll = (index) => {
-        setTasks ([]);
+       setTasks(tasks.filter((task)=>task.completed==false))
     }
 
     return (
-        <div>
+        <div className='todo-container'>
             <h2>Todo List</h2>
             <form onSubmit={handleSubmit}>
                 <input type="text"
+                    name='title'
+                    placeholder='Title'
+                    value={form.title}
+                    onChange={handleChange} />
+                <input type="text"
+                    name='task'
                     placeholder='Add new task'
-                    value={newTask}
-                    onChange={(e) => setNewTask(e.target.value)} />
-                <button onClick={addTask}>Add</button>
+                    value={form.task}
+                    onChange={handleChange} />
+                <button type='submit'>Add</button>
             </form>
             <div>
                 <ol>
-                    <p>{tasks.length == 0? 'No Tasks addes': ''}</p>
+                    <p>{tasks.length == 0 ? 'No Tasks addes' : ''}</p>
                     {tasks.map((task, index) =>
-                        <li className='task-list' key={index}>
-                            <span className='task'>{task.text}</span>
+                        <li className={`task-list ${task.completed ? "completed" : ""}`} key={index}>
+                            <span className='title'>{task.title}</span>
+                            <span className='task'>{task.task}</span>
                             <span>{task.completed ? "✅" : ""}</span>
                             <button className="btn btn-delete" onClick={() => deleteTask(index)}>Delete</button>
                             <button className="btn btn-up" onClick={() => uptask(index)}>👆</button>
