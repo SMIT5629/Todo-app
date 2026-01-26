@@ -86,8 +86,8 @@ function TodoList() {
                             <span className='task'>{task.task}</span>
                             <span>{task.completed ? "✅" : ""}</span>
                             <button className="btn btn-delete" onClick={() => deleteTask(index)}>Delete</button>
-                            <button className="btn btn-up" onClick={() => uptask(index)}>👆</button>
-                            <button className="btn btn-down" onClick={() => downtask(index)}>👇</button>
+                            <button className="btn btn-up" onClick={() => uptask(index)}>⬆️</button>
+                            <button className="btn btn-down" onClick={() => downtask(index)}>⬇️</button>
                             <button className="btn btn-toggle" onClick={() => toggleTask(index)}>
                                 {task.completed ? 'Undo' : 'Done'}
                             </button>
