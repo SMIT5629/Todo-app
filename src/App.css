@@ -103,9 +103,6 @@ p {
     margin-bottom: 15px;
 }
 
-/* ===============================
-   TASK ITEM
-================================ */
 .task-list {
     display: grid;
     grid-template-columns: 1.5fr 2.5fr auto auto auto auto;
